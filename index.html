@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>File(s) size</title>
+  <script>
+  	let xhr = new XMLHttpRequest();
+	xhr.open('GET', '/clear', false);
+	xhr.send();
+  </script>
+</head>
+
+<body>
+  <form action="/uploadmultiple"  enctype="multipart/form-data" method="POST">
+  Select files: <input type="file" name="myFiles" multiple>
+  <input type="submit" value="Upload your files"/>
+</form>
+</body>
+</html>
