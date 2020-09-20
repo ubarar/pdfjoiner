@@ -3,6 +3,7 @@ const app = express()
 const multer = require('multer')
 const { exec } = require('child_process');
 const fs = require('fs');
+const https = require('https');
 
 // config storage for file uploads
 var storage = multer.diskStorage({
@@ -62,4 +63,7 @@ app.get('/output', (req, res) => {
   });
 })
 
-app.listen(8080, () => console.log('server start'));
+https.createServer({
+  key: fs.readFileSync('/app/key.pem'),
+  cert: fs.readFileSync('/app/cert.pem')
+}, app).listen(8080, () => console.log('server start'));
