@@ -4,16 +4,25 @@
   <meta charset="UTF-8">
   <title>File(s) size</title>
   <script>
-  	let xhr = new XMLHttpRequest();
-	xhr.open('GET', '/clear', false);
-	xhr.send();
+    let xhr = new XMLHttpRequest();
+    xhr.open('GET', '/clear', false);
+    xhr.send();
   </script>
 </head>
 
 <body>
+  <h1> PDFJoiner </h1>
+  <a href="https://github.com/ubarar/pdfjoiner">(source code)</a>
+  <hr>
+
   <form action="/uploadmultiple"  enctype="multipart/form-data" method="POST">
-  Select files: <input type="file" name="myFiles" multiple>
-  <input type="submit" value="Upload your files"/>
-</form>
+    <div>
+      <input style="font-size: large" type="file" name="myFiles" multiple>
+    </div>
+    <hr>
+    <div>
+      <input style="font-size: large" type="submit" value="Merge"/>
+    </div>
+  </form>
 </body>
 </html>
