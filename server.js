@@ -26,6 +26,15 @@ function clearInputs(callback) {
   });
 }
 
+function clearOutputs(callback) {
+  exec("rm -f /app/storage/output/*", (err, stdout, stderr) => {
+    if (err)
+      callback(err);
+    else
+      callback();
+  });
+}
+
 app.get('/status', (req, res) => res.send('ok'));
 
 app.get('/', (req, res) => res.sendFile('/app/index.html'));
@@ -59,6 +68,7 @@ app.get('/output', (req, res) => {
       res.send("Something went wrong, please try again. " + err);
     } else {
       res.sendFile('/app/storage/output/output.pdf');
+      clearOutputs(() => {});
     }
   });
 })
