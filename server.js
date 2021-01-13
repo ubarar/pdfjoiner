@@ -68,7 +68,7 @@ app.post('/uploadcompress', upload.array('myFiles', 12), (req, res, next) => {
     file = '/app/storage/input/' + file;
   });
 
-  torun = 'pdfunite ' + file + ' /app/storage/output/output.pdf && rm -f /app/storage/input/*';
+  torun = 'gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/ebook -dNOPAUSE -dQUIET -dBATCH -sOutputFile=/app/storage/output/output.pdf ' + file;
   console.log("about to run " + torun);
 
   exec(torun, (err, stdout, stderr) => {
