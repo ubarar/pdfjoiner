@@ -61,6 +61,27 @@ app.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
   res.redirect('/output');
 })
 
+app.post('/uploadcompress', upload.array('myFiles', 12), (req, res, next) => {
+
+  let file = "";
+  fs.readdirSync('/app/storage/input').forEach(file => {
+    file = '/app/storage/input/' + file;
+  });
+
+  torun = 'pdfunite ' + file + ' /app/storage/output/output.pdf && rm -f /app/storage/input/*';
+  console.log("about to run " + torun);
+
+  exec(torun, (err, stdout, stderr) => {
+    if (err) {
+      res.send("Something went wrong, please try again. " + err);
+    } else {
+      console.log("pdf unite worked successfully")
+    }
+  });
+  res.redirect('/output');
+})
+
+
 app.get('/output', (req, res) => {
   clearInputs((err) => {
     if (err) {

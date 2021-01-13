@@ -1,6 +1,6 @@
 FROM node
 
-RUN apt update && apt install -y poppler-utils
+RUN apt update && apt install -y poppler-utils ghostscript
 
 # create the directory and cd's to it
 RUN mkdir /app /app/storage /app/storage/input /app/storage/output

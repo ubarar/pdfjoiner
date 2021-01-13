@@ -15,14 +15,26 @@
   <a href="https://github.com/ubarar/pdfjoiner">(source code)</a>
   <hr>
 
+
   <form action="/uploadmultiple"  enctype="multipart/form-data" method="POST">
     <div>
       <input style="font-size: large" type="file" name="myFiles" multiple>
     </div>
-    <hr>
     <div>
       <input style="font-size: large" type="submit" value="Merge"/>
     </div>
   </form>
+  <hr></hr>
+
+  <form action="/uploadcompress"  enctype="multipart/form-data" method="POST">
+    <div>
+      <input style="font-size: large" type="file" name="myFiles" multiple>
+    </div>
+    <div>
+      <input style="font-size: large" type="submit" value="Compress"/>
+    </div>
+  </form>
+  <hr>
+
 </body>
 </html>
