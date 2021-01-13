@@ -62,6 +62,7 @@ app.post('/uploadmultiple', upload.array('myFiles', 12), (req, res, next) => {
 })
 
 app.post('/uploadcompress', upload.array('myFiles', 12), (req, res, next) => {
+  console.log('running upload compress')
 
   let file = "";
   fs.readdirSync('/app/storage/input').forEach(file => {
