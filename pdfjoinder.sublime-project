@@ -1,0 +1,14 @@
+{
+        "folders":
+        [
+                {
+                        "path": "."
+                }
+        ],
+        "settings": {
+                "golang": {
+                    "PATH": "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+                    "GOPATH": "/home/uday/go"
+                }
+        }
+}
