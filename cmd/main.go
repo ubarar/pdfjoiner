@@ -104,5 +104,9 @@ func main () {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/uploadmultiple", uploadMultipleHandler)
 	http.HandleFunc("/output", outputHandler)
-	log.Fatal(http.ListenAndServeTLS(":8080", "./cert.pem", "./key.pem", nil))
+	if len(os.Args) == 2 && os.Args[1] == "--no-cert" {
+		log.Fatal(http.ListenAndServe(":8080", nil))
+	} else {
+		log.Fatal(http.ListenAndServeTLS(":8080", "./cert.pem", "./key.pem", nil))
+	}
 }
