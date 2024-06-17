@@ -1,16 +1,20 @@
-FROM node
-
-RUN apt update && apt install -y poppler-utils ghostscript
-
-# create the directory and cd's to it
-RUN mkdir /app /app/storage /app/storage/input /app/storage/output
-WORKDIR /app
-COPY ./package.json /app/package.json
-
-RUN npm install
+FROM golang:latest AS builder
 
 COPY . /app
 
+RUN cd /app && go mod tidy && cd /app/cmd && go build .
+
+# multi-stage build
+FROM ubuntu:latest
+
+RUN mkdir /app
+RUN apt update && apt install -y ghostscript
+
+COPY --from=builder /app/cmd/cmd /app
+COPY --from=builder /app/cmd/index.html /app
+
 EXPOSE 8080
 
-CMD node server.js
+WORKDIR /app
+
+CMD /app/cmd --no-cert
