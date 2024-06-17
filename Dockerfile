@@ -12,11 +12,9 @@ RUN apt update && apt install -y ghostscript
 
 COPY --from=builder /app/cmd/cmd /app
 COPY --from=builder /app/cmd/index.html /app
-COPY --from=builder /app/cmd/cert.pem /app
-COPY --from=builder /app/cmd/key.pem /app
 
 EXPOSE 8080
 
 WORKDIR /app
 
-CMD /app/cmd
+CMD /app/cmd --no-cert
