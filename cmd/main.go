@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"os"
-	"os/exec"
 	"io"
 	"log"
 	"net/http"
+	"os"
+	"os/exec"
 )
 
 // MaxMemory is upper limit of memory server will use to parse out
@@ -23,7 +23,7 @@ func uploadMultipleHandler(w http.ResponseWriter, r *http.Request) {
 	formFiles, fileNames := r.MultipartForm.File["myFiles"], []string{}
 
 	for _, f := range formFiles {
-		
+
 		file, err := f.Open()
 		defer file.Close()
 		if err != nil {
@@ -32,12 +32,12 @@ func uploadMultipleHandler(w http.ResponseWriter, r *http.Request) {
 		}
 		// write the file out
 		out, err := os.Create("/tmp/" + f.Filename)
-		defer cleanupFile(out, "/tmp/" + f.Filename)
+		defer cleanupFile(out, "/tmp/"+f.Filename)
 		if err != nil {
 			fmt.Fprintln(w, err)
 			return
 		}
-		fileNames = append(fileNames, "/tmp/" + f.Filename)
+		fileNames = append(fileNames, "/tmp/"+f.Filename)
 
 		// copy file from form onto disk
 		_, err = io.Copy(out, file)
@@ -57,15 +57,7 @@ func uploadMultipleHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func indexHandler(w http.ResponseWriter, r *http.Request) {
-	indexfile, err := os.Open("./index.html")
-	if err != nil {
-		fmt.Fprintln(w, err)
-	}
-	defer indexfile.Close()
-	_, err = io.Copy(w, indexfile)
-	if err != nil {
-		fmt.Fprintln(os.Stderr, err)
-	}
+	http.ServeFile(w, r, "./index.html")
 }
 
 func outputHandler(w http.ResponseWriter, r *http.Request) {
@@ -100,7 +92,7 @@ func cleanupFile(file *os.File, fileName string) {
 	}
 }
 
-func main () {
+func main() {
 	http.HandleFunc("/", indexHandler)
 	http.HandleFunc("/uploadmultiple", uploadMultipleHandler)
 	http.HandleFunc("/output", outputHandler)
